@@ -54,8 +54,8 @@ jobs:
           $expression = ".\ci-build.ps1"
           Invoke-Expression $expression
           
-          #$expression = ".\ci-test.ps1"
-          #Invoke-Expression $expression
+          $expression = ".\ci-test.ps1"
+          Invoke-Expression $expression
           
           #$expression = ".\ci-ng-test.ps1"
           #Invoke-Expression $expression

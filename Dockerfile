@@ -4,11 +4,13 @@ FROM mcr.microsoft.com/dotnet/runtime:5.0 AS base
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
 
+WORKDIR /src
 COPY ["/src/HassUtils/HassUtils.csproj", "/rn-build/HassUtils/"]
+COPY ["/src/HassUtils.Shared/HassUtils.Shared.csproj", "/rn-build/HassUtils.Shared/"]
 RUN dotnet restore "/rn-build/HassUtils/HassUtils.csproj"
 COPY /src/HassUtils/ /rn-build/HassUtils/
+COPY /src/HassUtils.Shared/ /rn-build/HassUtils.Shared/
 
 WORKDIR /rn-build/HassUtils/
 RUN dotnet build "HassUtils.csproj" -c Release -o /app/build
