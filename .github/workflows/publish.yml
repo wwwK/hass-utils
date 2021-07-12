@@ -1,11 +1,11 @@
-name: SonarQube
+name: Publish
 on:
   push:
     branches:
       - master
 jobs:
   build:
-    name: SonarQube
+    name: Build and Publish
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
@@ -14,13 +14,15 @@ jobs:
           java-version: 1.11
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
+
       - name: Cache SonarQube packages
         uses: actions/cache@v1
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache SonarQube scanner
         id: cache-sonar-scanner
         uses: actions/cache@v1
@@ -28,38 +30,45 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
+
       - name: Install SonarQube scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: powershell
         run: |
           $workingDir     = $PSScriptRoot
           $expression     = ""
+          $artifactsDir   = Join-Path $workingDir "artifacts"
+          $sqReportPaths  = "$artifactsDir/t1-coverage/**/coverage.opencover.xml"
           
           $sonarQubeParams = @(
             "/k:`"${{ secrets.SONAR_PROJECT }}`"",
             "/d:sonar.host.url=`"${{ secrets.SONAR_HOST_URL }}`"",
-            "/d:sonar.login=`"${{ secrets.SONAR_TOKEN }}`""
+            "/d:sonar.login=`"${{ secrets.SONAR_TOKEN }}`"",
+            "/d:sonar.cs.opencover.reportsPaths=`"$sqReportPaths`""
           )
+
+          # -outputRoot "D:\wrk\testing"
           
           $expression = ".\.sonar\scanner\dotnet-sonarscanner begin $sonarQubeParams"
           Invoke-Expression $expression
           
-          $expression = ".\ci-build.ps1"
+          $expression = ".\ci-build.ps1 -outputRoot `"$artifactsDir`""
+          Write-Host "Running: $expression"
           Invoke-Expression $expression
-          
-          $expression = ".\ci-test.ps1"
+
+          $expression = ".\ci-test.ps1 -outputRoot `"$artifactsDir`""
+          Write-Host "Running: $expression"
           Invoke-Expression $expression
-          
-          #$expression = ".\ci-ng-test.ps1"
-          #Invoke-Expression $expression
           
           $expression = ".\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login=`"${{ secrets.SONAR_TOKEN }}`""
           Invoke-Expression $expression
+          
           

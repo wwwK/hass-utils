@@ -1,20 +1,35 @@
-$PublishDirectoryName  = "artifacts";
-$Configuration         = "Release";
-$Version               = "1.0.0.0-local";
+param (
+  $outputRoot = $PSScriptRoot
+)
 
-# Setup directories
-$workingDir            = $PSScriptRoot;
-$sourceDir             = Join-Path $workingDir "src";
-$sourceApplicationDir  = Join-Path $sourceDir "HassUtils";
-$publishDir            = Join-Path $workingDir $PublishDirectoryName;
-$tempDir               = Join-Path $publishDir "temp";
-$applicationTempDir    = Join-Path $tempDir "application";
+$outputRoot         = Join-Path $outputRoot "\";
+$workingDir         = Join-Path $PSScriptRoot "\";
+$sourceDir          = Join-Path $workingDir "src";
+$artifactDir        = Join-Path $outputRoot "artifacts";
+$publishDir         = Join-Path $artifactDir "publish";
+$slnCommon          = Join-Path $sourceDir "Rn.NetCore.Common";
+$slnWebCommon       = Join-Path $sourceDir "Rn.NetCore.WebCommon";
+$slnMetricsRabbit   = Join-Path $sourceDir "Rn.NetCore.Metrics.Rabbit";
+$buildConfiguration = "Release";
+$buildCmd           = "";
+$curPublishDir      = "";
 
 
-# Build and Restore (Restore is implicit)
-$buildCmd           = "dotnet build $sourceDir --configuration $Configuration /p:Version=$Version" 
+# =============================================================================
+# Build projects
+# =============================================================================
+#
+$curPublishDir    = Join-Path $publishDir "Rn.NetCore.Common\";
+$buildCmd         = "dotnet build $slnCommon --configuration $buildConfiguration --output `"$curPublishDir`""
+Write-Host        "Running Build: $buildCmd"
 Invoke-Expression $buildCmd;
 
-#Publish Application
-$publishCmd       = "dotnet publish $sourceApplicationDir --configuration $Configuration --no-restore -o $applicationTempDir";
-Invoke-Expression $publishCmd;
+$curPublishDir    = Join-Path $publishDir "Rn.NetCore.WebCommon\";
+$buildCmd         = "dotnet build $slnWebCommon --configuration $buildConfiguration --output `"$curPublishDir`""
+Write-Host        "Running Build: $buildCmd"
+Invoke-Expression $buildCmd;
+
+$curPublishDir    = Join-Path $publishDir "Rn.NetCore.Metrics.Rabbit\";
+$buildCmd         = "dotnet build $slnMetricsRabbit --configuration $buildConfiguration --output `"$curPublishDir`""
+Write-Host        "Running Build: $buildCmd"
+Invoke-Expression $buildCmd;
