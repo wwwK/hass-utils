@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HassUtils.Shared", "HassUti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HassUtils.T1.Tests", "HassUtils.T1.Tests\HassUtils.T1.Tests.csproj", "{6643BE07-1F4D-4754-A4F9-F6D98E68E33F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HassUtils.DevConsole", "HassUtils.DevConsole\HassUtils.DevConsole.csproj", "{C185CC72-1E48-43C9-892D-CE15DE7F4975}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{6643BE07-1F4D-4754-A4F9-F6D98E68E33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6643BE07-1F4D-4754-A4F9-F6D98E68E33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6643BE07-1F4D-4754-A4F9-F6D98E68E33F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C185CC72-1E48-43C9-892D-CE15DE7F4975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C185CC72-1E48-43C9-892D-CE15DE7F4975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C185CC72-1E48-43C9-892D-CE15DE7F4975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C185CC72-1E48-43C9-892D-CE15DE7F4975}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
