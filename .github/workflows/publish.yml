@@ -44,6 +44,7 @@ jobs:
         shell: powershell
         run: |
           $workingDir     = $PSScriptRoot
+          $artifactsDir   = Join-Path $workingDir "artifacts"
           $sqReportPaths  = "$artifactsDir/t1-coverage/**/coverage.opencover.xml"
           $expression     = ""
           
