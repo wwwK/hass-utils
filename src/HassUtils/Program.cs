@@ -1,4 +1,5 @@
 using System;
+using HassUtils.Shared.Builders;
 using HassUtils.Shared.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,9 @@ namespace HassUtils
           services
             // Configuration
             .AddSingleton(BindHassUtilsConfig(hostContext.Configuration))
+
+            // Builders
+            .AddSingleton<IHassApiUrlBuilder, HassApiUrlBuilder>()
 
             // Logging
             .AddSingleton(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>))
