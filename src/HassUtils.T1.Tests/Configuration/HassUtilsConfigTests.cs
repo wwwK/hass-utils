@@ -16,5 +16,11 @@ namespace HassUtils.T1.Tests.Configuration
       Assert.IsNotNull(config.Server);
       Assert.IsInstanceOf<HomeAssistantServerConfig>(config.Server);
     }
+
+    [Test]
+    public void HassUtilsConfig_Given_ConfigKey_ShouldReturn_ExpectedValue()
+    {
+      Assert.AreEqual("HassUtils", HassUtilsConfig.ConfigKey);
+    }
   }
 }

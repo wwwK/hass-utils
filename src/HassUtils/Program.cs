@@ -1,4 +1,6 @@
 using System;
+using HassUtils.Shared.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -34,6 +36,9 @@ namespace HassUtils
         .ConfigureServices((hostContext, services) =>
         {
           services
+            // Configuration
+            .AddSingleton(BindHassUtilsConfig(hostContext.Configuration))
+
             // Logging
             .AddSingleton(typeof(ILoggerAdapter<>), typeof(LoggerAdapter<>))
             .AddLogging(loggingBuilder =>
@@ -47,5 +52,16 @@ namespace HassUtils
             // Worker
             .AddHostedService<Worker>();
         });
+
+    private static HassUtilsConfig BindHassUtilsConfig(IConfiguration configuration)
+    {
+      var boundConfig = new HassUtilsConfig();
+      var configSection = configuration.GetSection(HassUtilsConfig.ConfigKey);
+      
+      if(configSection.Exists())
+        configSection.Bind(boundConfig);
+
+      return boundConfig;
+    }
   }
 }
