@@ -5,13 +5,11 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HassUtils", "HassUtils\HassUtils.csproj", "{1E7A33CE-BEF4-4DCB-BB11-C89FAF6C62FE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{CDCF2BFC-D081-4F33-A682-29D10A5FB290}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{D7C1DB7E-BE6F-4F66-8F43-273609182F28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HassUtils.Shared", "HassUtils.Shared\HassUtils.Shared.csproj", "{2F253FAC-6F75-4812-91A6-E7588EC2948A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HassUtils.Shared", "HassUtils.Shared\HassUtils.Shared.csproj", "{2F253FAC-6F75-4812-91A6-E7588EC2948A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HassUtils.T1.Tests", "HassUtils.T1.Tests\HassUtils.T1.Tests.csproj", "{6643BE07-1F4D-4754-A4F9-F6D98E68E33F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HassUtils.T1.Tests", "HassUtils.T1.Tests\HassUtils.T1.Tests.csproj", "{6643BE07-1F4D-4754-A4F9-F6D98E68E33F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,7 +35,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2F253FAC-6F75-4812-91A6-E7588EC2948A} = {D7C1DB7E-BE6F-4F66-8F43-273609182F28}
-		{6643BE07-1F4D-4754-A4F9-F6D98E68E33F} = {CDCF2BFC-D081-4F33-A682-29D10A5FB290}
+		{6643BE07-1F4D-4754-A4F9-F6D98E68E33F} = {D7C1DB7E-BE6F-4F66-8F43-273609182F28}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86345551-6F48-46FD-82E4-3E820629FCBB}
